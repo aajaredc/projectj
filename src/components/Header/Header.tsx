@@ -5,18 +5,19 @@ import { StyledHeader } from "./Header.styles";
 function Header() {
   return (
     <StyledHeader className="px-5" collapseOnSelect expand="lg">
-      <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+      <Navbar.Brand href="#home">桃色木</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="ml-auto">
-          <Link to="/explore">test</Link>
-          <Link to="/">test2</Link>
-          <Nav.Link  eventKey={1} href="explore">Explore</Nav.Link>
-          <Nav.Link eventKey={2}>
+          <Nav.Link as={Link}  eventKey={1} to="/explore">Explore</Nav.Link>
+          <Nav.Link as={Link}  eventKey={2} to="/problems">
             Problems
           </Nav.Link>
-          <Nav.Link eventKey={3}>
+          <Nav.Link as={Link}  eventKey={3} to="/resources">
             Resources
+          </Nav.Link>
+          <Nav.Link as={Link}  eventKey={4} to="/about">
+            About
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>
