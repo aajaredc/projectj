@@ -13,12 +13,16 @@ function Header() {
           <Nav.Link as={Link}  eventKey={2} to="/problems">
             Problems
           </Nav.Link>
-          <Nav.Link as={Link}  eventKey={3} to="/resources">
+          <Nav.Link as={Link}  eventKey={3} to="/cards">
+            Kanji Cards
+          </Nav.Link>
+          <Nav.Link as={Link}  eventKey={4} to="/resources">
             Resources
           </Nav.Link>
-          <Nav.Link as={Link}  eventKey={4} to="/about">
+          <Nav.Link as={Link}  eventKey={5} to="/about">
             About
           </Nav.Link>
+          
         </Nav>
       </Navbar.Collapse>
     </StyledHeader>

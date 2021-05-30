@@ -3,6 +3,7 @@ import Header from "./components/Header/Header";
 import Explore from "./routes/explore/Explore";
 import { Router, Route, Switch } from "react-router";
 import Home from "./routes/home/Home";
+import Cards from './routes/cards/Card.js';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/explore" component={Explore} />
+        <Route path="/cards" component={Cards} />
       </Switch>
 
       {/* switch statement for react router */}
