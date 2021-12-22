@@ -2,16 +2,22 @@ import { Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { StyledHeader } from "./Header.styles";
 
-function Header() {
+interface Props {
+  activeKey: any
+}
+
+const Header: React.FC<Props> = ({activeKey}) => {
   return (
     <StyledHeader className="px-5" collapseOnSelect expand="lg">
-      <Navbar.Brand href="#home">桃色木</Navbar.Brand>
+      <Navbar.Brand href="/">桃色木</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav className="ml-auto">
-          <Nav.Link as={Link}  eventKey={1} to="/explore">Explore</Nav.Link>
-          <Nav.Link as={Link}  eventKey={2} to="/problems">
-            Problems
+        <Nav className="ml-auto"  activeKey={activeKey}>
+          <Nav.Link as={Link}  eventKey={1} to="/">
+            Home
+          </Nav.Link>
+          <Nav.Link as={Link}  eventKey={2} to="/lists">
+            Lists
           </Nav.Link>
           <Nav.Link as={Link}  eventKey={3} to="/resources">
             Resources

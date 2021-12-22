@@ -5,6 +5,13 @@ export const StyledHeader = styled(Navbar)`
     box-shadow: 0 2px 8px #f0f1f2;
     padding-bottom: 0;
     padding-top: 0;
+    margin-bottom: 24px;
+
+/* 992 size */
+
+    .navbar-brand {
+        color: #ff6b87;
+    }
 
     .nav-link {
         border-top: 2px solid transparent;
@@ -21,4 +28,6 @@ export const StyledHeader = styled(Navbar)`
         border-top: 2px solid #ff6b87;
         color: #ff6b87 !important;
     }
+
+
 `
