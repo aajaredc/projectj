@@ -1,34 +1,35 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import * as Yup from "yup";
 
 import { FormikProps, Form, Field, Formik, FormikHelpers } from "formik";
 import { useEffect, useState } from "react";
 import { Container, Spinner } from "react-bootstrap";
 import Header from "../../components/Header/Header";
+import { Kanji, Word } from "../../utils/types/Api";
+import { Digest } from "../../utils/types/Common";
 
 function Home() {
   const [isLoading, setIsLoading] = useState(true);
-  const [dailyWords, setDailyWords] = useState<any[]>([]);
-  const [dailyKanji, setDailyKanji] = useState<any[]>([]);
+  const [digest, setDigest] = useState<Digest[]>([]);
 
   function getRandomNumber(min: number, max: number) {
     return Math.floor(Math.random() * (max - min) + min);
   }
 
   async function handleLoad() {
-    let gradeResponses = await Promise.all(
+    let gradeResponses: AxiosResponse<string[]>[] = await Promise.all(
       [1, 2, 3, 4, 5, 6].map((grade) =>
         axios.get(`https://kanjiapi.dev/v1/kanji/grade-${grade}`)
       )
     );
 
-    let kanjiResponses = await Promise.all(
+    let kanjiResponses: AxiosResponse<Kanji>[] = await Promise.all(
       gradeResponses.map((res) =>
         axios.get(`https://kanjiapi.dev/v1/kanji/${res.data[getRandomNumber(0, res.data.length)]}`)
       )
     );
 
-    let wordsResponses = await Promise.all(
+    let wordsResponses: AxiosResponse<Word[]>[] = await Promise.all(
       kanjiResponses.map((res) =>
         axios.get(`https://kanjiapi.dev/v1/words/${res.data.kanji}`)
       )
@@ -38,14 +39,19 @@ function Home() {
     console.log(kanjiResponses);
     console.log(wordsResponses);
 
-    // TODO change to Digest object
-    // for (let res of kanjiResponses) {
-    //   const {data} = res;
-    //   let arr = [...dailyKanji]
-    //   arr.push(data)
-    //   setDailyKanji(arr);
-    // }
+    let arr: Digest[] = [];
+    for (let i = 0; i < kanjiResponses.length; i++) {
+      const k = kanjiResponses[i];
+      const w = wordsResponses[i];
+      
+      arr.push({
+        kanji: k.data,
+        word: w.data[getRandomNumber(0, w.data.length)]
+      })
+    }
 
+    setDigest(arr);
+    console.log('arr', arr)
     setIsLoading(false);
   }
 
