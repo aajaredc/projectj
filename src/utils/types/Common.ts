@@ -9,3 +9,14 @@ export interface Digest {
     kanji: Kanji;
     word: Word;
 }
+
+/**
+ * Color pallet
+ */
+export enum Colors {
+    Pink = '#ff6b87',
+    Yellow = '#fbf1a9',
+    LightPink = '#ff99ac'
+}
+
+export declare type Color = Colors.Pink | Colors.Yellow | Colors.LightPink;

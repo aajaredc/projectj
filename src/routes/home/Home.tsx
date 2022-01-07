@@ -1,12 +1,13 @@
 import axios, { AxiosResponse } from "axios";
 import * as Yup from "yup";
-
 import { FormikProps, Form, Field, Formik, FormikHelpers } from "formik";
 import { useEffect, useState } from "react";
-import { Container, Spinner } from "react-bootstrap";
+import { Container, Row, Spinner, Tab, Tabs, Col } from "react-bootstrap";
 import Header from "../../components/Header/Header";
 import { Kanji, Word } from "../../utils/types/Api";
-import { Digest } from "../../utils/types/Common";
+import { Colors, Digest } from "../../utils/types/Common";
+import StyledKanji from "../../components/StyledKanji/StyledKanji";
+import { Definition } from "../../components/CommonStyles";
 
 function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -25,7 +26,11 @@ function Home() {
 
     let kanjiResponses: AxiosResponse<Kanji>[] = await Promise.all(
       gradeResponses.map((res) =>
-        axios.get(`https://kanjiapi.dev/v1/kanji/${res.data[getRandomNumber(0, res.data.length)]}`)
+        axios.get(
+          `https://kanjiapi.dev/v1/kanji/${
+            res.data[getRandomNumber(0, res.data.length)]
+          }`
+        )
       )
     );
 
@@ -43,15 +48,15 @@ function Home() {
     for (let i = 0; i < kanjiResponses.length; i++) {
       const k = kanjiResponses[i];
       const w = wordsResponses[i];
-      
+
       arr.push({
         kanji: k.data,
-        word: w.data[getRandomNumber(0, w.data.length)]
-      })
+        word: w.data[getRandomNumber(0, w.data.length)],
+      });
     }
 
     setDigest(arr);
-    console.log('arr', arr)
+    console.log("arr", arr);
     setIsLoading(false);
   }
 
@@ -73,7 +78,7 @@ function Home() {
           </div>
         ) : (
           <div>
-            <div>
+            {/* <div>
               <Formik
                 initialValues={{
                   value: "",
@@ -104,14 +109,66 @@ function Home() {
                   </Form>
                 )}
               </Formik>
-            </div>
+            </div> */}
 
-            <div className="mt-4">Daily Digest</div>
-            {/* {dailyKanji.map(obj => (
-              <div>
-                {obj}
-              </div>
-            ))} */}
+            <Tabs defaultActiveKey={"grade1"}>
+              {digest.map((element) => {
+                const { kanji, word } = element;
+                return (
+                  <Tab
+                    eventKey={`grade${kanji.grade}`}
+                    title={`Grade ${kanji.grade}`}
+                  >
+                    <Container fluid>
+                      <Row>
+                        <Col>
+                          <div className="d-flex align-items-center justify-content-around mv4">
+                            <StyledKanji
+                              character={kanji.kanji}
+                              backgroundColor={Colors.LightPink}
+                              size="lg"
+                              className="my-4"
+                            />
+                          </div>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col className="mb-4">
+                          {kanji.meanings.map((meaning) => {
+                            return (
+                              <div>
+                                {meaning}
+                              </div>
+                            );
+                          })}
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col>
+                        {word.variants.map((variant) => {
+                            return (
+                              <div className="mb-4">
+                                <Definition>{variant.written}</Definition>
+                                <div>{variant.pronounced}</div>
+                              </div>
+                            );
+                          })}
+                          {word.meanings.map((meaning) => {
+                            return (
+                              <div>
+                                {meaning.glosses.map((gloss) => {
+                                  return <div>{gloss}</div>;
+                                })}
+                              </div>
+                            );
+                          })}
+                        </Col>
+                      </Row>
+                    </Container>
+                  </Tab>
+                );
+              })}
+            </Tabs>
           </div>
         )}
       </Container>
