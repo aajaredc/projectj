@@ -15,7 +15,7 @@ const Header: React.FC<Props> = ({ activeKey }) => {
         <Nav.Link as={Link} eventKey={1} to="/">
           Home
         </Nav.Link>
-        <Nav.Link as={Link} eventKey={2} to="/lists">
+        <Nav.Link as={Link} eventKey={2} to="/users/USERID/lists">
           Lists
         </Nav.Link>
         <Nav.Link as={Link} eventKey={3} to="/resources">
@@ -38,7 +38,7 @@ const Header: React.FC<Props> = ({ activeKey }) => {
             <Nav.Link as={Link} eventKey={1} to="/">
               Home
             </Nav.Link>
-            <Nav.Link as={Link} eventKey={2} to="/lists">
+            <Nav.Link as={Link} eventKey={2} to="/users/USERID/lists">
               Lists
             </Nav.Link>
             <Nav.Link as={Link} eventKey={3} to="/resources">

@@ -110,6 +110,15 @@ function Home() {
                 )}
               </Formik>
             </div> */}
+            
+            <div>
+              <button onClick={async () => {
+                const response = await axios.get(`https://kanjiapi.dev/v1/kanji/grade-1`)
+                console.log(response);
+              }}>
+
+              </button>
+            </div>
 
             <Tabs defaultActiveKey={"grade1"}>
               {digest.map((element) => {
@@ -145,7 +154,7 @@ function Home() {
                       </Row>
                       <Row>
                         <Col>
-                        {word.variants.map((variant) => {
+                          {word.variants.map((variant) => {
                             return (
                               <div className="mb-4">
                                 <Definition>{variant.written}</Definition>

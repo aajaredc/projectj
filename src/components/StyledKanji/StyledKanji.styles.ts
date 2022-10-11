@@ -7,6 +7,8 @@ function getSize(size: string) {
     switch (size) {
         case 'lg':
             return '6rem';
+        case 'md':
+            return '1.5rem';
         default:
             return '1rem'
     }
