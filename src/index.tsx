@@ -1,14 +1,27 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./routes/home/Home";
+import ListItem from "./routes/lists/ListItem";
+import List from "./routes/lists/List";
+import Lists from "./routes/lists/Lists";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
-    </BrowserRouter>
+        <Routes>
+            <Route path="/" element={<Home />} />
+            
+            <Route path="/users/:userId/lists" element={<Lists />} />
+            <Route path="/users/:userId/lists/:listId" element={<List />} />
+            <Route
+              path="/users/:userId/lists/:listId/:kanji"
+              element={<ListItem />}
+            />
+        </Routes>
+      </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );
